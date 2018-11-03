@@ -1,0 +1,51 @@
+﻿@using CodeAnalyzer.Web.Domain;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <form method="post" enctype="multipart/form-data" asp-action="Upload" asp-controller="Home">
+        <div class="col-sm-5">
+            <input asp-for="File" type="file" class="form-control" name="File" data-val>
+            <input id="UploadBtn" type="submit" class="btn btn-primary form-control" name="UploadBtn" value="Upload" />
+        </div>
+        <div class="col-sm-7">
+            <span asp-validation-for="File" class="text-danger small"></span>
+        </div>
+    </form>
+</div>
+<br>
+
+@if (Model.List.Count > 0)
+{
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">File name</th>
+                    <th class="text-center">String number</th>
+                    <th class="text-center">Task</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ToDoItem item in Model.List)
+                {
+                    <tr class="mytooltip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="@item.Hint.ToString()">
+                        <td class="text-center">@Model.File.FileName</td>
+                        <td class="text-center">@item.Number</td>
+                        <td>@item.ToDo</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <form method="post" enctype="multipart/form-data" asp-action="Save" asp-controller="Home">
+            <input id="SaveBtn" type="submit" class="btn btn-primary form-control col-sm-5" name="SaveBtn" value="Save to DB" />
+        </form>
+    </div>
+}
+
+@section Scripts{
+    <script src=@Url.Content("~/js/fileValidator.js")></script>
+}
+
