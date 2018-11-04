@@ -17,7 +17,7 @@ namespace CodeAnalyzer.Web.Domain
 
         public async Task<int> CreateFile(string fileName, DateTime time)
         {
-            if(time == null)
+            if (time == null)
             {
                 throw new ArgumentNullException(nameof(time));
             }
@@ -31,7 +31,7 @@ namespace CodeAnalyzer.Web.Domain
             return entity.Id;
         }
 
-        public async Task<bool> CreateTask(ToDoItem toDoItem, int fileId)
+        public async Task CreateTask(ToDoItem toDoItem, int fileId)
         {
             if (toDoItem == null)
             {
@@ -43,8 +43,23 @@ namespace CodeAnalyzer.Web.Domain
             _context.Tasks.Add(entity);
 
             await _context.SaveChangesAsync();
+        }
 
-            return true;
+        public async Task CreateTasks(IEnumerable<ToDoItem> toDoList, int fileId)
+        {
+            if (toDoList == null)
+            {
+                throw new ArgumentNullException(nameof(toDoList));
+            }
+
+            foreach (ToDoItem item in toDoList)
+            {
+                TaskEntity entity = new TaskEntity { FileID = fileId, StringNumber = item.Number, Task = item.ToDo, Tooltip = item.Hint.ToString() };
+
+                _context.Tasks.Add(entity);
+            }
+
+            await _context.SaveChangesAsync();
         }
     }
 }

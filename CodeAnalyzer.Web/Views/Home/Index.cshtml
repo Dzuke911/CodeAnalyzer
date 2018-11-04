@@ -40,7 +40,9 @@
             </tbody>
         </table>
         <form method="post" enctype="multipart/form-data" asp-action="Save" asp-controller="Home">
-            <input id="SaveBtn" type="submit" class="btn btn-primary form-control col-sm-5" name="SaveBtn" value="Save to DB" />
+            <div class="col-sm-5">
+                <input id="SaveBtn" type="submit" class="btn btn-primary form-control" name="SaveBtn" value="Save to DB" />
+            </div>
         </form>
     </div>
 }
