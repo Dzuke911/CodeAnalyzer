@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace CodeAnalyzer.Data
 {
@@ -25,6 +27,12 @@ namespace CodeAnalyzer.Data
             {
                 context.Database.Migrate();
             }
+
+            int ob = 5;
+            SqlParameter par = new SqlParameter("@ID", SqlDbType.NVarChar);
+            par.Direction = ParameterDirection.InputOutput;
+            string x = null;
+            int? amount = string.IsNullOrEmpty(x) ? (int?)null : Convert.ToInt32(x);
         }
 
         public static void ConfigureServices(IServiceCollection services)

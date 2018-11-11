@@ -52,8 +52,11 @@ namespace CodeAnalyzer.Web.Controllers
             return Redirect(nameof(HomeController.Index));
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            Class1 x = new Class1();
+            await x.Xdd2();
+
             IndexModel model = new IndexModel { List = new List<ToDoItem>() };
 
             return View(nameof(HomeController.Index), model);
