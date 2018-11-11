@@ -42,12 +42,12 @@ namespace CodeAnalyzer.Web.Controllers
             List<ToDoItem> list = HttpContext.Session.Get<List<ToDoItem>>("list");
             string fileName = HttpContext.Session.GetString("fname");
 
+            HttpContext.Session.Remove("list");
+            HttpContext.Session.Remove("fname");
+
             int fileId = await _manager.CreateFile(fileName, DateTime.Now);
 
-            foreach(ToDoItem item in list)
-            {
-                await _manager.CreateTask(item, fileId);
-            }
+            await _manager.CreateTasks(list, fileId);
 
             return Redirect(nameof(HomeController.Index));
         }

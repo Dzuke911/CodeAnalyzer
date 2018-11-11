@@ -8,6 +8,7 @@ namespace CodeAnalyzer.Web.Domain
     public interface IDBManager
     {
         Task<int> CreateFile(string fileName, DateTime time);
-        Task<bool> CreateTask(ToDoItem toDoItem, int fileId);
+        Task CreateTask(ToDoItem toDoItem, int fileId);
+        Task CreateTasks(IEnumerable<ToDoItem> toDoList, int fileId);
     }
 }
